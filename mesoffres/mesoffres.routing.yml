@@ -1,0 +1,7 @@
+mesoffres.list:
+  path: '/mes-offres'
+  defaults:
+    _controller: 'Drupal\mesoffres\Controller\MesOffresController::list'
+  requirements:
+    _permission: 'access content'
+  no_cache: true

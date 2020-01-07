@@ -1,0 +1,5 @@
+name: Mes Offres
+type: module
+core: 8.x
+description: Regrouper l'ensemble des offres auwquelles vous avez postulé
+package: Recherche d'emploi

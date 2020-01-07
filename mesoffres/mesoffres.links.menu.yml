@@ -1,0 +1,7 @@
+mesoffres.menu:
+  title: 'Mes Offres'
+  description: 'La liste de toutes vos offres'
+  parent: main
+  route_name: mesoffres.list
+  menu_name: main
+  weight: 2
