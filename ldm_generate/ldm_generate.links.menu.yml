@@ -1,0 +1,7 @@
+ldm_generate.menu:
+  title: 'Lettre de motivation'
+  description: 'Générer ma lettre de motivation'
+  parent: main
+  route_name: ldm_generate.form
+  menu_name: main
+  weight: 2

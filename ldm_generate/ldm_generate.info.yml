@@ -1,0 +1,5 @@
+name: Générer une lettre de motivation
+core: 8.x
+type: module
+description: Générer une lettre de motivation pour gagner du temps !
+package: Recherche d'emploi
