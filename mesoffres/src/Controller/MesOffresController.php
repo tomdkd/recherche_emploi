@@ -8,7 +8,7 @@ class MesOffresController extends ControllerBase {
 
   public function list() {
     $table[] = [
-      '#markup' => "Coucou",
+      '#markup' => "Bonjour",
     ];
 
     return $table;
