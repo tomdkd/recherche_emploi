@@ -5,3 +5,11 @@ mesoffres.list:
   requirements:
     _permission: 'access content'
   no_cache: true
+
+mesoffres.ajout:
+  path: '/mes-offres/ajouter'
+  defaults:
+    _form: 'Drupal\mesoffres\Form\AjoutOffreForm'
+  requirements:
+    _permission: 'access content'
+  no_cache: true

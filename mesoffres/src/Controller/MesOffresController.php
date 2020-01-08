@@ -7,11 +7,9 @@ use Drupal\Core\Controller\ControllerBase;
 class MesOffresController extends ControllerBase {
 
   public function list() {
-    $table[] = [
-      '#markup' => "Bonjour",
+    return [
+      '#theme' => 'mesoffres_table',
     ];
-
-    return $table;
   }
 
 }
