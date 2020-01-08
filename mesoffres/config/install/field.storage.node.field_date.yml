@@ -1,0 +1,23 @@
+uuid: aa5925ef-4a14-4411-af9c-d9a42d4a0abd
+langcode: fr
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+  enforced:
+    module:
+    - mesoffres
+id: node.field_date
+field_name: field_date
+entity_type: node
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

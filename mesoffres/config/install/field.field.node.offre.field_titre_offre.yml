@@ -1,0 +1,19 @@
+uuid: 6648e663-6679-431d-8b77-0824e698413d
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_titre_offre
+    - node.type.offre
+id: node.offre.field_titre_offre
+field_name: field_titre_offre
+entity_type: node
+bundle: offre
+label: 'Titre de l''offre'
+description: 'Libellé de l''offre à laquelle vous avez postulé'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

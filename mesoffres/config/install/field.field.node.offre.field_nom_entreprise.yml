@@ -1,0 +1,19 @@
+uuid: aafe726f-3724-4165-9a28-b3753c308b28
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_nom_entreprise
+    - node.type.offre
+id: node.offre.field_nom_entreprise
+field_name: field_nom_entreprise
+entity_type: node
+bundle: offre
+label: 'Nom de l''entreprise'
+description: 'Le nom de l''entreprise qui propose l''offre d''emploi'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

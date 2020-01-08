@@ -1,0 +1,24 @@
+uuid: b7e3e99f-62d4-4d57-8681-7243654652e8
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date
+    - node.type.offre
+  module:
+    - datetime
+id: node.offre.field_date
+field_name: field_date
+entity_type: node
+bundle: offre
+label: 'Date d''envoi de la candidature'
+description: 'Date à laquelle vous prit contact avec l''entreprise'
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

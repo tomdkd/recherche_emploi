@@ -1,0 +1,21 @@
+uuid: bd2579e2-fdc8-435e-a1cd-4c6dbbf84f04
+langcode: fr
+status: true
+dependencies:
+  module:
+    - node
+  enforced:
+    module:
+    - mesoffres
+id: node.field_reponse
+field_name: field_reponse
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

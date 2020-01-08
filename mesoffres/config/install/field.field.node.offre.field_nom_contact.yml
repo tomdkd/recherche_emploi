@@ -1,0 +1,21 @@
+uuid: 25e7f01d-108f-43f9-9c98-026938a2f302
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_nom_contact
+    - node.type.offre
+id: node.offre.field_nom_contact
+field_name: field_nom_contact
+entity_type: node
+bundle: offre
+label: 'Nom du contact'
+description: 'Le nom de la personne avec qui vous avez prit contact'
+required: false
+translatable: false
+default_value:
+  -
+    value: 'Direction des Ressources Humaines'
+default_value_callback: ''
+settings: {  }
+field_type: string

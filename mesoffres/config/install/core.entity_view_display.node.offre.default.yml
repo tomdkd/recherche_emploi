@@ -1,0 +1,78 @@
+uuid: 8c41557f-62ab-4a1a-8208-a65087318ddd
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.node.offre.field_date
+    - field.field.node.offre.field_mail_contact
+    - field.field.node.offre.field_nom_contact
+    - field.field.node.offre.field_nom_entreprise
+    - field.field.node.offre.field_reponse
+    - field.field.node.offre.field_titre_offre
+    - node.type.offre
+  module:
+    - datetime
+    - user
+id: node.offre.default
+targetEntityType: node
+bundle: offre
+mode: default
+content:
+  field_date:
+    weight: 105
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_mail_contact:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_nom_contact:
+    weight: 104
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_nom_entreprise:
+    weight: 102
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_reponse:
+    weight: 106
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_titre_offre:
+    weight: 101
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  langcode: true

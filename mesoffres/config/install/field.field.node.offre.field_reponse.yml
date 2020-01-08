@@ -1,0 +1,23 @@
+uuid: da1bbf17-10f9-454a-9f15-d7cf61ffe30e
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_reponse
+    - node.type.offre
+id: node.offre.field_reponse
+field_name: field_reponse
+entity_type: node
+bundle: offre
+label: Réponse
+description: 'Vous avez reçu une réponse. A-t-elle était positive ou négative?'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Positive
+  off_label: Negative
+field_type: boolean

@@ -1,0 +1,24 @@
+uuid: d447ca3c-77bb-4835-b9a3-8a11253e73f3
+langcode: fr
+status: true
+dependencies:
+  module:
+    - node
+  enforced:
+    module:
+    - mesoffres
+id: node.field_mail_contact
+field_name: field_mail_contact
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
