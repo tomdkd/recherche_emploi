@@ -6,6 +6,7 @@ use DateTime;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\mesoffres\Service\NodeService;
+use stdClass;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use function var_dump;
 
@@ -58,12 +59,6 @@ class AjoutOffreForm extends FormBase {
       '#required' => TRUE,
     ];
 
-    $form['entreprise'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Nom de l\'entreprise'),
-      '#required' => TRUE,
-    ];
-
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Enregistrer'),
@@ -76,7 +71,31 @@ class AjoutOffreForm extends FormBase {
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state){
-    // TODO: Implement submitForm() method.
+    $service = $this->nodeService;
+
+    // Récupération des valeurs.
+    $values = $form_state->getValues();
+
+    $offre = new stdClass();
+    $offre->intitule = $values['poste'];
+    $offre->date = $values['date'];
+    $offre->nom_entreprise = $values['entreprise'];
+    $offre->mail_contact = $values['mail'];
+    $offre->nom_contact = $values['contact'];
+    $offre->reponse = FALSE;
+
+    // On envoi les valeur pour créer un noeud.
+    if ($service->createNode($offre)) {
+      $message = $this->t('L\'offre a bien été enregistrée');
+      $this->messenger()->addMessage($message);
+    }
+    else {
+      $message = $this->t('Il y a eu une erreur dans l\'enregistrement');
+      $this->messenger()->addError($message);
+    }
+
+    return $this->redirect('mesoffres.list');
+
   }
 
   public function getDate($date = NULL) {

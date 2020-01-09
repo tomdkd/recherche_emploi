@@ -3,7 +3,10 @@
 function mesoffres_theme($existing, $type, $theme, $path) {
   return [
     'mesoffres_table' => [
-      'variables' => [],
+      'variables' => [
+        'offres' => NULL,
+        'administrateur' => NULL,
+      ],
     ],
   ];
 }
