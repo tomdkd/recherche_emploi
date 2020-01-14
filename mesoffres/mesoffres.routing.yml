@@ -13,3 +13,11 @@ mesoffres.ajout:
   requirements:
     _permission: 'access content'
   no_cache: true
+
+mesoffres.delete:
+  path: '/mes-offres/{numero}/supprimer'
+  defaults:
+    _controller: 'Drupal\mesoffres\Controller\MesOffresController::delete'
+  requirements:
+    _permission: 'access content'
+  no_cache: true

@@ -4,6 +4,7 @@ namespace Drupal\mesoffres\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\mesoffres\Service\NodeService;
+use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class MesOffresController extends ControllerBase {
@@ -24,8 +25,17 @@ class MesOffresController extends ControllerBase {
     return [
       '#theme' => 'mesoffres_table',
       '#offres' => $this->nodeService->getAllNodes(),
-      '#administratreur' => $this->nodeService->isAdministrator(),
     ];
+  }
+
+  public function delete($numero) {
+    $node = Node::load($numero);
+    $node->delete();
+
+    $message = "L'offre a bien été supprimée";
+    $this->messenger()->addMessage($this->t($message));
+
+    return $this->redirect('mesoffres.list');
   }
 
 }

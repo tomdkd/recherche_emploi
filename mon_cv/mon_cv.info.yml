@@ -1,0 +1,5 @@
+name: Mon CV
+type: module
+core: 8.x
+description: Gardez votre CV à disposition
+package: Recherche d'emploi

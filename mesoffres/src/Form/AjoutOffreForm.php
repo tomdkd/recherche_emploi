@@ -40,23 +40,27 @@ class AjoutOffreForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Nom de l\'entreprise'),
       '#required' => TRUE,
+      '#default_value' => $this->testEnregistrerOffre(TRUE),
     ];
 
     $form['poste'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Intitulé du poste'),
       '#required' => TRUE,
+      '#default_value' => $this->testEnregistrerOffre(TRUE),
     ];
 
     $form['contact'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Nom et prénom du contact (Facultatif)'),
+      '#default_value' => $this->testEnregistrerOffre(TRUE),
     ];
 
     $form['mail'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Adresse mail du contact'),
       '#required' => TRUE,
+      '#default_value' => $this->testEnregistrerOffre(TRUE),
     ];
 
     $form['submit'] = [
@@ -94,7 +98,8 @@ class AjoutOffreForm extends FormBase {
       $this->messenger()->addError($message);
     }
 
-    return $this->redirect('mesoffres.list');
+    $form_state->setRedirect('mesoffres.list');
+    return;
 
   }
 
@@ -108,6 +113,12 @@ class AjoutOffreForm extends FormBase {
     $datetime = $datetime->format('d/m/Y');
     return $datetime;
 
+  }
+
+  public function testEnregistrerOffre($trueorfalse) {
+    if ($trueorfalse) {
+      return "test test";
+    }
   }
 
 }

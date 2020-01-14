@@ -45,10 +45,11 @@ class NodeService {
         'mail_contact' => $node->get('field_mail_contact')->value,
         'nom_contact' => $node->get('field_nom_contact')->value,
         'reponse' => $node->get('field_reponse')->value ? 'Positive' : 'Negative / Pas de réponse',
-      ];
+        'nid' => $node->id(),
+        ];
     }
 
-    $this->array_sort($offres, 'date', SORT_ASC);
+    $this->array_sort($offres, 'date', SORT_DESC);
     return $offres;
   }
 

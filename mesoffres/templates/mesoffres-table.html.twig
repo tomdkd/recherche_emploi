@@ -19,6 +19,7 @@
           <td>{{ offre.nom_contact }}</td>
           <td>{{ offre.mail_contact }}</td>
           <td>{{ offre.reponse }}</td>
+          <td><a href="{{ path('mesoffres.delete', {'numero': offre.nid}) }}" class="btn btn-danger">Supprimer</a></td>
         </tr>
       {% endfor %}
     {% else %}

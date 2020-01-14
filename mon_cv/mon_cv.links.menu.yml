@@ -1,0 +1,14 @@
+mon_cv.link:
+  title: 'Mon CV'
+  description: 'Gradez votre CV à disposition'
+  parent: main
+  route_name: mon_cv.display
+  menu_name: main
+  weight: 3
+
+mon_cv.upload_link:
+  title: 'Mon CV'
+  description: 'Télécharger votre CV'
+  parent: system.admin_config_ui
+  route_name: mon_cv.upload
+  weight: 2
