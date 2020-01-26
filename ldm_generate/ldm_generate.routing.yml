@@ -1,7 +1,0 @@
-ldm_generate.form:
-  path: '/ma-lettre-de-motivation'
-  defaults:
-    _form: 'Drupal\ldm_generate\Form\LdmGenerateForm'
-  requirements:
-    _role: 'authenticated'
-  no_cache: true
