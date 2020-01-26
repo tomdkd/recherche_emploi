@@ -28,5 +28,13 @@ mesoffres.delete:
   defaults:
     _controller: 'Drupal\mesoffres\Controller\MesOffresController::delete'
   requirements:
-    _permission: 'access content'
+    _role: 'authenticated'
+  no_cache: true
+
+mesoffres.export:
+  path: '/mes-offres/export'
+  defaults:
+    _controller: 'Drupal\mesoffres\Controller\MesOffresController::export'
+  requirements:
+    _role: 'authenticated'
   no_cache: true
