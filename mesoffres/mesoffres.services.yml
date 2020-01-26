@@ -1,3 +1,5 @@
 services:
   mesoffres.node_service:
     class: 'Drupal\mesoffres\Service\NodeService'
+  mesoffres.mail_service:
+    class: 'Drupal\mesoffres\Service\MailService'

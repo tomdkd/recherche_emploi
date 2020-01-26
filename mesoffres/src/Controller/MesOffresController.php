@@ -17,14 +17,23 @@ class MesOffresController extends ControllerBase {
 
   public static function create(ContainerInterface $container){
     return new static (
-      $container->get('mesoffres.node_service')
+      $container->get('mesoffres.node_service'),
     );
   }
 
   public function list() {
+
+    $config = \Drupal::configFactory()->getEditable('mesoffres.settings');
+
+    if ($config->get('notification') != 1) {
+      $this->messenger()->addWarning($this->t('Vous n\'avez pas activé la notification par mail. Soyez notifié des actions à mener en l\'activant dans la configuration'));
+    }
+
     return [
       '#theme' => 'mesoffres_table',
       '#offres' => $this->nodeService->getAllNodes(),
+      '#administratreur' => $this->nodeService->isAdministrator(),
+      '#username' => \Drupal::currentUser()->getAccountName(),
     ];
   }
 

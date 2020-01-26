@@ -5,3 +5,10 @@ mesoffres.menu:
   route_name: mesoffres.list
   menu_name: main
   weight: 2
+
+mesoffres.conf_menu:
+  title: 'Configurer mes offres'
+  description: 'Configurer ici les paramétres que vous souhaitez activer'
+  parent: system.admin_config_content
+  route_name: mesoffres.conf
+  weight: 2

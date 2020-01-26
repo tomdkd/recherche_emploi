@@ -1,11 +1,40 @@
 <?php
 
+/**
+ * Theme creation
+ * @param $existing
+ * @param $type
+ * @param $theme
+ * @param $path
+ * @return array
+ */
+
 function mesoffres_theme($existing, $type, $theme, $path) {
   return [
     'mesoffres_table' => [
       'variables' => [
         'offres' => NULL,
+        'administrateur' => NULL,
+        'username' => NULL,
       ],
     ],
+    'mesoffres_mail' => [
+      'variables' => [
+        'site_name' => NULL,
+        'to' => NULL,
+      ],
+    ]
   ];
+}
+
+/**
+ * Change first page after user login
+ * @param $account
+ */
+
+function mesoffres_user_login($account) {
+  if (!isset($_GET['destination'])) {
+    $response = new \Symfony\Component\HttpFoundation\RedirectResponse(\Drupal::url('mesoffres.list'));
+    $response->send();
+  }
 }

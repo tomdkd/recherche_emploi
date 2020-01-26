@@ -1,5 +1,4 @@
 # recherche_emploi
-Ensemble de modules Drupal 8 permettant d'aider à la recherche d'emploi.<br>
-Modules actuels:<br><br>
-- mesoffres: Liste les offres
-- ldm_generate : Génération d'une lettre de motivation (Nécessite "mesoffres")<br>
+All modules is available for your Drupal 8 environment. This modules allow you to manage all your job hunting.<br>
+Available modules :<br>
+- mesoffres : This module allows you to reference all job applications you did. You can configure the module to add mail notification

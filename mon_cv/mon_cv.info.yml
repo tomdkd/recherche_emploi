@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 name: Mon CV
 type: module
 core: 8.x
 description: Gardez votre CV à disposition
 package: Recherche d'emploi
+=======
+name: Mon Cv
+type: module
+core: 8.x
+>>>>>>> test
