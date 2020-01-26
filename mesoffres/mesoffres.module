@@ -18,12 +18,6 @@ function mesoffres_theme($existing, $type, $theme, $path) {
         'username' => NULL,
       ],
     ],
-    'mesoffres_mail' => [
-      'variables' => [
-        'site_name' => NULL,
-        'to' => NULL,
-      ],
-    ]
   ];
 }
 
