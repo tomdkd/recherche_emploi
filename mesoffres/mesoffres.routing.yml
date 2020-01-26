@@ -3,7 +3,7 @@ mesoffres.list:
   defaults:
     _controller: 'Drupal\mesoffres\Controller\MesOffresController::list'
   requirements:
-    _permission: 'access content'
+    _role: 'authenticated'
   no_cache: true
 
 mesoffres.ajout:
@@ -11,5 +11,14 @@ mesoffres.ajout:
   defaults:
     _form: 'Drupal\mesoffres\Form\AjoutOffreForm'
   requirements:
-    _permission: 'access content'
+    _role: 'authenticated'
+  no_cache: true
+
+mesoffres.conf:
+  path: '/admin/config/content/ma-configuration'
+  defaults:
+    _form: 'Drupal\mesoffres\Form\MesOffresConf'
+    _title: 'Configurer mes offres'
+  requirements:
+    _role: 'administrator'
   no_cache: true

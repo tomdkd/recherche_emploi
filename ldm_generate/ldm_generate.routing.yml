@@ -3,5 +3,5 @@ ldm_generate.form:
   defaults:
     _form: 'Drupal\ldm_generate\Form\LdmGenerateForm'
   requirements:
-    _permission: 'access content'
+    _role: 'authenticated'
   no_cache: true
