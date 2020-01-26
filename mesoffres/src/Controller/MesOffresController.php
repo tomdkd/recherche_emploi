@@ -26,7 +26,6 @@ class MesOffresController extends ControllerBase {
   public function list() {
 
     $config = \Drupal::configFactory()->getEditable('mesoffres.settings');
-    var_dump($this->nodeService->getAllNodes());
 
     if ($config->get('notification') != 1) {
       $this->messenger()->addWarning($this->t('Vous n\'avez pas activé la notification par mail. Soyez notifié des actions à mener en l\'activant dans la configuration'));
@@ -93,7 +92,8 @@ class MesOffresController extends ControllerBase {
       return $response;
     }
     else {
-      return $this->messenger()->addError($this->t('Vous n\'avez aucune offre enregistrée'));
+      $this->messenger()->addError($this->t('Vous n\'avez aucune offre enregistrée'));
+      return $this->redirect('mesoffres.list');
     }
 
   }
