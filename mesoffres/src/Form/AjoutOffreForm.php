@@ -3,8 +3,10 @@
 namespace Drupal\mesoffres\Form;
 
 use DateTime;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\mesoffres\Offre;
 use Drupal\mesoffres\Service\NodeService;
 use stdClass;
@@ -30,39 +32,66 @@ class AjoutOffreForm extends FormBase {
   }
 
   public function buildForm(array $form, FormStateInterface $form_state){
-    $form['date'] = [
+    $nid = \Drupal::routeMatch()->getParameter('nid');
+    if ($nid) {
+      $node = $this->nodeService->getNodeByNid($nid);
+      $offre = new Offre($node->id(),
+        $node->get('field_date')->value,
+        $node->get('field_nom_entreprise')->value,
+        $node->get('field_titre_offre')->value,
+        $node->get('field_nom_contact')->value,
+        $node->get('field_mail_contact')->value,
+        $node->get('field_reponse')->value
+      );
+    }
+
+    $form['nid'] = [
       '#type' => 'textfield',
+      '#default_value' => $nid,
+      '#access' => FALSE,
+    ];
+
+    $form['date'] = [
+      '#type' => 'date',
       '#title' => $this->t('Date de création de l\'offre'),
-      '#default_value' => $this->getDate(),
-      '#disabled' => TRUE,
+      '#default_value' => $offre ? $offre->getDate() : $this->getDate(),
+      '#disabled' => $offre ? FALSE : TRUE,
     ];
 
     $form['entreprise'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Nom de l\'entreprise'),
       '#required' => TRUE,
-      '#default_value' => $this->testEnregistrerOffre(TRUE),
+      '#default_value' => $offre ? $offre->getEntreprise() : '',
     ];
 
     $form['poste'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Intitulé du poste'),
       '#required' => TRUE,
-      '#default_value' => $this->testEnregistrerOffre(TRUE),
+      '#default_value' => $offre ? $offre->getIntitule() : '',
     ];
 
     $form['contact'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Nom et prénom du contact (Facultatif)'),
-      '#default_value' => $this->testEnregistrerOffre(TRUE),
+      '#default_value' => $offre ? $offre->getNomContact() : '',
     ];
 
     $form['mail'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Adresse mail du contact'),
       '#required' => TRUE,
-      '#default_value' => $this->testEnregistrerOffre(TRUE),
+      '#default_value' => $offre ? $offre->getMailContact() : '',
     ];
+
+    if ($nid) {
+      $form['reponse'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Réponse reçue ?'),
+        '#default_value' => $offre->getReponse() == '1' ? TRUE : FALSE,
+      ];
+    }
 
     $form['submit'] = [
       '#type' => 'submit',
@@ -70,6 +99,12 @@ class AjoutOffreForm extends FormBase {
       '#attributes' => [
         'class' => ['btn', 'btn-success'],
       ],
+    ];
+
+    $url = Url::fromRoute('mesoffres.list')->toString();
+    $value = $this->t('Back');
+    $form['back'] = [
+      '#markup' => '<a href="' . $url .'" class="btn btn-info">' . $value . '</a>',
     ];
 
     return $form;
@@ -87,16 +122,23 @@ class AjoutOffreForm extends FormBase {
     $offre->nom_entreprise = $values['entreprise'];
     $offre->mail_contact = $values['mail'];
     $offre->nom_contact = $values['contact'];
-    $offre->reponse = FALSE;
+    $offre->reponse = $values['reponse'] == '1' ? TRUE : FALSE;
 
-    // On envoi les valeur pour créer un noeud.
-    if ($service->createNode($offre)) {
-      $message = $this->t('L\'offre a bien été enregistrée');
-      $this->messenger()->addMessage($message);
+    if ($values['nid']) {
+      // Modification
+      $offre->nid = $values['nid'];
+      $this->nodeService->updateNode('offre', $offre);
     }
     else {
-      $message = $this->t('Il y a eu une erreur dans l\'enregistrement');
-      $this->messenger()->addError($message);
+      // Création.
+      if ($service->createNode($offre)) {
+        $message = $this->t('L\'offre a bien été enregistrée');
+        $this->messenger()->addMessage($message);
+      }
+      else {
+        $message = $this->t('Il y a eu une erreur dans l\'enregistrement');
+        $this->messenger()->addError($message);
+      }
     }
 
     $form_state->setRedirect('mesoffres.list');
@@ -111,15 +153,9 @@ class AjoutOffreForm extends FormBase {
     }
 
     $datetime = new DateTime($date);
-    $datetime = $datetime->format('d/m/Y');
+    $datetime = $datetime->format('Y-m-d');
     return $datetime;
 
-  }
-
-  public function testEnregistrerOffre($trueorfalse) {
-    if ($trueorfalse) {
-      return "test test";
-    }
   }
 
 }

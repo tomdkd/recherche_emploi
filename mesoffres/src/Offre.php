@@ -147,7 +147,9 @@ class Offre {
 
   public function checksendmail() {
     $today = new \DateTime();
-    $offre_date = new \DateTime($this->getDate());
+
+    $offre_date = str_replace('/', '-', $this->getDate());
+    $offre_date = new \DateTime($offre_date);
 
     $diff = $today->diff($offre_date);
 

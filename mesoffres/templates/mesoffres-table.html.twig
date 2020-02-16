@@ -20,7 +20,10 @@
           <td>{{ offre.nomcontact }}</td>
           <td>{{ offre.mailcontact }}</td>
           <td>{{ offre.reponse }}</td>
-          <td><a href="{{ path('mesoffres.delete', {'numero': offre.nid}) }}" class="btn btn-danger">Supprimer</a></td>
+          <td>
+            <a href="{{ path('mesoffres.modifier', {'nid': offre.nid}) }}" class="btn btn-success">Modifier</a>
+            <a href="{{ path('mesoffres.delete', {'nid': offre.nid}) }}" class="btn btn-danger">Supprimer</a>
+          </td>
         </tr>
       {% endfor %}
     {% else %}

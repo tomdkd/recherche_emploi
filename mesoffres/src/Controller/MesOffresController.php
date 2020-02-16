@@ -48,8 +48,10 @@ class MesOffresController extends ControllerBase
             $alloffres[] = $offre->getEntreprise();
           }
         }
-        $alloffres = implode(', ', $alloffres);
-        $this->mailservice->sendMail($alloffres);
+         if ($alloffres != NULL) {
+           $alloffres = implode(', ', $alloffres);
+           $this->mailservice->sendMail($alloffres);
+         }
       }
 
       if (in_array('administrator', $user_role)) {
@@ -60,14 +62,13 @@ class MesOffresController extends ControllerBase
     return [
       '#theme' => 'mesoffres_table',
       '#offres' => $nodes,
-//      '#administratreur' => $this->nodeService->isAdministrator(),
       '#username' => \Drupal::currentUser()->getAccountName(),
     ];
   }
 
-  public function delete($numero)
+  public function delete($nid)
   {
-    $node = Node::load($numero);
+    $node = Node::load($nid);
     $node->delete();
 
     $message = "L'offre a bien été supprimée";

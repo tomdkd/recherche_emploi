@@ -23,8 +23,16 @@ mesoffres.conf:
     _role: 'administrator'
   no_cache: true
 
+mesoffres.modifier:
+  path: '/mes-offres/{nid}/modifier'
+  defaults:
+    _form: 'Drupal\mesoffres\Form\AjoutOffreForm'
+  requirements:
+    _role: 'authenticated'
+  no_cache: true
+
 mesoffres.delete:
-  path: '/mes-offres/{numero}/supprimer'
+  path: '/mes-offres/{nid}/supprimer'
   defaults:
     _controller: 'Drupal\mesoffres\Controller\MesOffresController::delete'
   requirements:
