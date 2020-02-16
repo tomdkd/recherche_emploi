@@ -12,13 +12,13 @@
   </thead>
   <tbody>
     {% if offres %}
-      {% for offre in offres%}
+      {% for offre in offres %}
         <tr>
           <th scope="row">{{ offre.date }}</th>
           <td>{{ offre.entreprise }}</td>
           <td>{{ offre.intitule }}</td>
-          <td>{{ offre.nom_contact }}</td>
-          <td>{{ offre.mail_contact }}</td>
+          <td>{{ offre.nomcontact }}</td>
+          <td>{{ offre.mailcontact }}</td>
           <td>{{ offre.reponse }}</td>
           <td><a href="{{ path('mesoffres.delete', {'numero': offre.nid}) }}" class="btn btn-danger">Supprimer</a></td>
         </tr>

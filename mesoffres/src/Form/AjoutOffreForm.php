@@ -5,6 +5,7 @@ namespace Drupal\mesoffres\Form;
 use DateTime;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\mesoffres\Offre;
 use Drupal\mesoffres\Service\NodeService;
 use stdClass;
 use Symfony\Component\DependencyInjection\ContainerInterface;

@@ -4,6 +4,7 @@ namespace Drupal\mesoffres\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
+use Drupal\mesoffres\Service\MailService;
 use Drupal\mesoffres\Service\NodeService;
 use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -14,36 +15,52 @@ class MesOffresController extends ControllerBase
 {
 
   private $nodeService;
+  private $mailservice;
 
-  public function __construct(NodeService $nodeService)
-  {
+  public function __construct(NodeService $nodeService, MailService $mailservice){
     $this->nodeService = $nodeService;
+    $this->mailservice = $mailservice;
   }
 
   public static function create(ContainerInterface $container)
   {
     return new static (
-      $container->get('mesoffres.node_service')
+      $container->get('mesoffres.node_service'),
+      $container->get('mesoffres.mail_service')
     );
   }
 
-  public function list()
-  {
-
+  public function list(){
     $config = \Drupal::configFactory()->getEditable('mesoffres.settings');
+    $nodes = $this->nodeService->getAllNodes();
+    $user_role = \Drupal::currentUser()->getRoles();
 
     if ($config->get('notification') != 1) {
       $url = Url::fromRoute('mesoffres.conf')->toString();
       $message = 'Vous n\'avez pas activé la notification par mail. ';
       $message .= 'Soyez notifié des actions à mener en l\'activant dans la <a href="' . $url . '">configuration</a>';
-      $this->messenger()->addWarning(
-        $this->t($message));
+      $this->messenger()->addWarning($this->t($message));
+    }
+    else {
+      if ($nodes != NULL && !in_array('administrator', $user_role)) {
+        foreach ($nodes as $offre) {
+          if ($offre->checksendmail()) {
+            $alloffres[] = $offre->getEntreprise();
+          }
+        }
+        $alloffres = implode(', ', $alloffres);
+        $this->mailservice->sendMail($alloffres);
+      }
+
+      if (in_array('administrator', $user_role)) {
+        $this->messenger()->addWarning($this->t('Envoi de mail désactivé en mode administrateur'));
+      }
     }
 
     return [
       '#theme' => 'mesoffres_table',
-      '#offres' => $this->nodeService->getAllNodes(),
-      '#administratreur' => $this->nodeService->isAdministrator(),
+      '#offres' => $nodes,
+//      '#administratreur' => $this->nodeService->isAdministrator(),
       '#username' => \Drupal::currentUser()->getAccountName(),
     ];
   }
@@ -77,12 +94,12 @@ class MesOffresController extends ControllerBase
 
       foreach ($nodes as $node) {
         $data = [
-          'date' => $node['date'],
-          'entreprise' => $node['entreprise'],
-          'offre' => $node['intitule'],
-          'contact' => $node['nom_contact'],
-          'mail' => $node['mail_contact'],
-          'reponse' => $node['reponse'],
+          'date' => $node->getDate(),
+          'entreprise' => $node->getEntreprise(),
+          'offre' => $node->getIntitule(),
+          'contact' => $node->getNomContact(),
+          'mail' => $node->getMailContact(),
+          'reponse' => $node->getReponse(),
         ];
 
         $content .= "\n" . implode(';', $data);

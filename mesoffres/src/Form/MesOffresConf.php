@@ -4,6 +4,8 @@ namespace Drupal\mesoffres\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Zend\Diactoros\Response\RedirectResponse;
 
 class MesOffresConf extends ConfigFormBase {
 
@@ -21,19 +23,6 @@ class MesOffresConf extends ConfigFormBase {
       '#title' => $this->t('Activer la notification par mail'),
       '#default_value' => $this->getsetConfig('get', 'notification'),
     ];
-
-    $form['mail'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Mail'),
-      '#required' => true,
-      '#default_value' => $this->getsetConfig('get', 'mail'),
-    ];
-
-//    $form['test'] = [
-//      '#type' => 'textfield',
-//      '#default_value' => $this->getsetConfig('get', 'mail'),
-//      '#title' => 'Test config',
-//    ];
 
     $form['submit'] = [
       '#type' => 'submit',
