@@ -3,32 +3,41 @@
 namespace Drupal\mesoffres\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Url;
 use Drupal\mesoffres\Service\NodeService;
 use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
-class MesOffresController extends ControllerBase {
+class MesOffresController extends ControllerBase
+{
 
   private $nodeService;
 
-  public function __construct(NodeService $nodeService){
+  public function __construct(NodeService $nodeService)
+  {
     $this->nodeService = $nodeService;
   }
 
-  public static function create(ContainerInterface $container){
+  public static function create(ContainerInterface $container)
+  {
     return new static (
-      $container->get('mesoffres.node_service'),
+      $container->get('mesoffres.node_service')
     );
   }
 
-  public function list() {
+  public function list()
+  {
 
     $config = \Drupal::configFactory()->getEditable('mesoffres.settings');
 
     if ($config->get('notification') != 1) {
-      $this->messenger()->addWarning($this->t('Vous n\'avez pas activé la notification par mail. Soyez notifié des actions à mener en l\'activant dans la configuration'));
+      $url = Url::fromRoute('mesoffres.conf')->toString();
+      $message = 'Vous n\'avez pas activé la notification par mail. ';
+      $message .= 'Soyez notifié des actions à mener en l\'activant dans la <a href="' . $url . '">configuration</a>';
+      $this->messenger()->addWarning(
+        $this->t($message));
     }
 
     return [
@@ -39,7 +48,8 @@ class MesOffresController extends ControllerBase {
     ];
   }
 
-  public function delete($numero) {
+  public function delete($numero)
+  {
     $node = Node::load($numero);
     $node->delete();
 
@@ -90,8 +100,7 @@ class MesOffresController extends ControllerBase {
       $response->headers->set('Content-Encoding', 'UTF-8');
 
       return $response;
-    }
-    else {
+    } else {
       $this->messenger()->addError($this->t('Vous n\'avez aucune offre enregistrée'));
       return $this->redirect('mesoffres.list');
     }
